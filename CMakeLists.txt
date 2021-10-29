@@ -1,0 +1,33 @@
+cmake_minimum_required(VERSION 3.1)
+set(CMAKE_CXX_STANDARD 11)
+set(PROJECT_NAME mc_aliengo)
+set(PROJECT_DESCRIPTION "ALIENGO prototype robot module for mc_rtc")
+set(PROJECT_URL https://github.com/rohanpsingh/mc_aliengo)
+
+project(${PROJECT_NAME} LANGUAGES CXX)
+
+find_package(mc_rtc REQUIRED)
+find_package(aliengo_description REQUIRED)
+
+if("${aliengo_description_INSTALL_PREFIX}" STREQUAL "")
+  if("${aliengo_description_SOURCE_PREFIX}" STREQUAL "")
+    message(FATAL_ERROR "Your aliengo_description package does not define where to find the data")
+  endif()
+  set(ALIENGO_DESCRIPTION_PATH "${aliengo_description_SOURCE_PREFIX}")
+else()
+  set(ALIENGO_DESCRIPTION_PATH "${aliengo_description_INSTALL_PREFIX}")
+  if(EXISTS "${ALIENGO_DESCRIPTION_PATH}/share/aliengo_description")
+    set(ALIENGO_DESCRIPTION_PATH "${ALIENGO_DESCRIPTION_PATH}/share/aliengo_description")
+  endif()
+endif()
+if(DEFINED ALIENGO_DESCRIPTION_PATH)
+  MESSAGE(STATUS "Found aliengo_description: ${ALIENGO_DESCRIPTION_PATH}")
+endif()
+configure_file(src/config_aliengo.h.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/include/config_aliengo.h)
+
+macro(add_module NAME)
+  add_robot(${NAME} src/${NAME}.cpp src/${NAME}.h)
+  target_include_directories(${NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/include")
+endmacro()
+
+add_module(mc_aliengo)

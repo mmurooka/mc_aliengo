@@ -1,0 +1,8 @@
+#pragma once
+
+#include <string>
+
+namespace mc_rtc
+{
+  constexpr auto ALIENGO_DESCRIPTION_PATH = "${ALIENGO_DESCRIPTION_PATH}";
+}
