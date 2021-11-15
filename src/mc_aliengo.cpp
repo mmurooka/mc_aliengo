@@ -66,14 +66,14 @@ AliengoRobotModule::AliengoRobotModule()
   {
     if(j.name() != "Root" && j.dof() > 0)
     {
-      _stance[j.name()] = {mc_rtc::constants::toRad(standing.at(j.name()))};
+      _stance[j.name()] = {standing.at(j.name())};
     }
   }
 
   _default_attitude = {1., 0., 0., 0., 0., 0., 0.60};
 
-  _bodySensors.emplace_back("Accelerometer", "Body", sva::PTransformd(Eigen::Vector3d(0., 0., 0.)));
-  _bodySensors.emplace_back("FloatingBase", "Body", sva::PTransformd::Identity());
+  _bodySensors.emplace_back("Accelerometer", "trunk", sva::PTransformd(Eigen::Vector3d(0., 0., 0.)));
+  _bodySensors.emplace_back("FloatingBase", "trunk", sva::PTransformd::Identity());
 
   _minimalSelfCollisions = {
     {"FR_hip", "trunk", 0.02, 0.01, 0.0},
