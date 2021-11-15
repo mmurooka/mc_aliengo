@@ -66,7 +66,7 @@ AliengoRobotModule::AliengoRobotModule()
   {
     if(j.name() != "Root" && j.dof() > 0)
     {
-      _stance[j.name()] = {mc_rtc::constants::toRad(standing.at(j.name()))};
+      _stance[j.name()] = {standing.at(j.name())};
     }
   }
 
