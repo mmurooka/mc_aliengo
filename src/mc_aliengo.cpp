@@ -72,6 +72,15 @@ AliengoRobotModule::AliengoRobotModule()
 
   _default_attitude = {1., 0., 0., 0., 0., 0., 0.60};
 
+  _forceSensors.push_back(
+      mc_rbdyn::ForceSensor("FrontLeftFootForceSensor", "FL_foot", sva::PTransformd(Eigen::Vector3d(0, 0, 0))));
+  _forceSensors.push_back(
+      mc_rbdyn::ForceSensor("FrontRightFootForceSensor", "FR_foot", sva::PTransformd(Eigen::Vector3d(0, 0, 0))));
+  _forceSensors.push_back(
+      mc_rbdyn::ForceSensor("RearLeftFootForceSensor", "RL_foot", sva::PTransformd(Eigen::Vector3d(0, 0, 0))));
+  _forceSensors.push_back(
+      mc_rbdyn::ForceSensor("RearRightFootForceSensor", "RR_foot", sva::PTransformd(Eigen::Vector3d(0, 0, 0))));
+
   _bodySensors.emplace_back("Accelerometer", "trunk", sva::PTransformd(Eigen::Vector3d(0., 0., 0.)));
   _bodySensors.emplace_back("FloatingBase", "trunk", sva::PTransformd::Identity());
 
